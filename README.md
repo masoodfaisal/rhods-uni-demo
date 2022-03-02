@@ -4,10 +4,12 @@ This repo contains a simple EDA, model build and model deloyment script that you
 
 ## Steps
 - Install ROSA. For details please consult [ROSA](https://aws.amazon.com/rosa/)
-- Go to [Red Hat Hybrid Cloud Console](https://console.redhat.com/openshift/) and enable the RHODS addon for your ROSA cluster
-- Verify tha RHODS has been installed on your ROSA cluster. 
-- Verify that your OCP user has been granted the rhods-admin role, for demo purposes only
-- Verify that that the system:image-puller has been assigned to the default service account
+- Go to [Red Hat Hybrid Cloud Console](https://console.redhat.com/openshift/) and enable the RHODS addon for your ROSA cluster. If the RHODS complain about "Insufficient Capacity", add a machine pool with 12 vCPUs.
+- Verify tha RHODS has been installed on your ROSA cluster. This may take some time so be patient.
+- Create a group called rhods-admins. 
+- Verify that your OCP user has been allocated the rhods-admins group, for demo purposes only 
+- Verify that that the system:image-puller has been assigned to the default service account in the redhat-ods-applications namespace
+- Install OSS Seldon operator in the redhat-ods-applications namespace
 
 
 ## Using JupyerHub
