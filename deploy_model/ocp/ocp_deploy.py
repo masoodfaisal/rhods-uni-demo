@@ -1,5 +1,6 @@
-import os
 
+%pip install openshift-client
+import os
 import openshift as oc
 from jinja2 import Template
 import time
@@ -10,13 +11,13 @@ project = "redhat-ods-applications"
 os.environ['OPENSHIFT_CLIENT_PYTHON_DEFAULT_OC_PATH'] = '/tmp/oc'
 
 
-model_name = 'saeeddemo'
-model_version = "v1"# os.environ["MODEL_VERSION"]
+model_name = 'educationdemo'
+model_version = "1"# os.environ["MODEL_VERSION"]
 build_name = f"seldon-model-{model_name}-v{model_version}"
 def download_artifacts():
-    print("retrieving model metadata from mlflow...")
+    print("Retrieving model metadata ...")
     #shutil.copy("../../models", "", *, follow_symlinks=True)
-    print("download successful")
+    print("Download successful")
     
     return run_id
     
@@ -24,9 +25,12 @@ def download_artifacts():
 run_id = download_artifacts()
 
 print("Start OCP things...")
+#print('OpenShift server version: {}'.format(oc.get_server_version()))
+token = os.environ["OPENSHIFT_API_LOGIN_TOKEN"]
+server = os.environ["OPENSHIFT_API_SERVER"]
+print(token)
+print(server)
 
-server=os.environ["OPENSHIFT_API_SERVER"]
-token=os.environ["OPENSHIFT_API_LOGIN_TOKEN"]
 
 
 
@@ -80,3 +84,4 @@ with oc.api_server(server):
                         time.sleep(10)
             else:
                 print(f"Route already exists {service_name}")
+
